@@ -14,7 +14,6 @@ Charge.create = (newCharge, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created categorie :", { id: res.index_cha, ...newCharge });
     });
 }
 
@@ -27,7 +26,6 @@ Charge.getAll = (id, result) => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
@@ -41,7 +39,6 @@ Charge.findById = (id_user, id_charge, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res);
         result(null, res);
         return;
       }
@@ -62,7 +59,6 @@ Charge.update = (id, charge, result) => {
             if (res.affectedRows == 0) {
                 return;
             }
-            console.log("Updating :", {id_cha: result.id_cha, ...result});
         })
 }
 
@@ -80,7 +76,6 @@ Charge.remove = result => {
             return;
           }
       
-          console.log("deleted categories with id: ", result);
     });
 }
 

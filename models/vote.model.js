@@ -7,7 +7,8 @@ const Vote = function (vote) {
     this.date_creation = vote.date_creation,
     this.is_anonyme = vote.is_anonyme,
     this.nb_response = vote.nb_response,
-    this.id_coloc = vote.id_coloc
+    this.id_coloc = vote.id_coloc,
+    this.timer = vote.timer
 }
 
 Vote.create = (newVote, result) => {
@@ -53,8 +54,8 @@ Vote.findById = (id_vote, result) => {
   };
 
 Vote.update = (id, vote, result) => {
-    sql.query("UPDATE `vote` SET `nom`=?,`instigator`=?,`date_creation`=?,`is_anonyme`=?,`nb_response`=?,`id_coloc`=? WHERE id_vote = ?",
-        [vote.nom, vote.instigator, vote.date_creation,vote.is_anonyme, vote.nb_response, vote.id_coloc, id],
+    sql.query("UPDATE `vote` SET `nom`=?,`instigator`=?,`date_creation`=?,`is_anonyme`=?,`nb_response`=?,`id_coloc`=?, timer = ? WHERE id_vote = ?",
+        [vote.nom, vote.instigator, vote.date_creation,vote.is_anonyme, vote.nb_response, vote.id_coloc, vote.timer,  id],
         (err, res) => {
             if (err) {
                 console.log("erreur :", err);
@@ -66,8 +67,8 @@ Vote.update = (id, vote, result) => {
         })
 }
 
-Vote.remove = result => {
-    sql.query("DELETE FROM vote WHERE id_vote =?", result.voteID, (err, res) => {
+Vote.remove = (id, result) => {
+    sql.query("DELETE FROM vote WHERE id_vote =?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

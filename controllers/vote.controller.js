@@ -14,7 +14,8 @@ exports.create = (req, res) => {
         date_creation : req.body.date_creation,
         is_anonyme : req.body.is_anonyme,
         nb_response : req.body.nb_response,
-        id_coloc : req.body.id_coloc
+        id_coloc : req.body.id_coloc,
+        timer : req.body.timer
     });
 
     Vote.create(vote, (err, data) => {

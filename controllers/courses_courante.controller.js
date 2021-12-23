@@ -15,7 +15,8 @@ exports.create = (req, res) => {
         nb_buy_cur_cou: req.body.nb_buy_cur_cou,
         last_buy_cur_cou: req.body.last_buy_cur_cou,
         prix_cur_cou: req.body.prix_cur_cou,
-        id_coloc : req.body.id_coloc
+        id_coloc : req.body.id_coloc,
+        done : req.body.done
     });
     
     // Save Customer in the database
@@ -88,7 +89,6 @@ exports.update = (req, res) => {
 
 // Delete a Customer with the specified customerId in the request
 exports.delete = (req, res) => {
-  console.log(req.params);
   CourseCourante.remove(req.params.coursesCID, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {

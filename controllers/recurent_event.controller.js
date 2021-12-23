@@ -1,4 +1,4 @@
-const Recurent_Tache = require("../models/recurent_tache.model.js");
+const Recurent_Event = require("../models/recurent_event.model.js");
 
 // Create and Save a new Customer
 exports.create = (req, res) => {
@@ -9,14 +9,14 @@ exports.create = (req, res) => {
     }
     
     // Create a Course
-    const recurent_Tache = new Recurent_Tache({
+    const recurent_event = new Recurent_Event({
         id: req.body.id,
         nom: req.body.nom,
         id_coloc : req.body.id_coloc
     });
     
     // Save Customer in the database
-    Recurent_Tache.create(recurent_Tache, (err, data) => {
+    Recurent_Event.create(recurent_event, (err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Customers from the database.
 exports.getAll = (req, res) => {
-    Recurent_Tache.getAll(req.params.colocID,(err, data) => {
+    Recurent_Event.getAll(req.params.colocID,(err, data) => {
         if (err)
           res.status(500).send({
             message:
@@ -40,15 +40,15 @@ exports.getAll = (req, res) => {
 
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
-    Recurent_Tache.findById(req.params.recurent_tacheID, (err, data) => {
+    Recurent_Event.findById(req.params.recurent_eventID, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not found Customer with id ${req.params.recurent_tacheID}.`
+              message: `Not found Customer with id ${req.params.recurent_eventID}.`
             });
           } else {
             res.status(500).send({
-              message: "Error retrieving Customer with id " + req.params.recurent_tacheID
+              message: "Error retrieving Customer with id " + req.params.recurent_eventID
             });
           }
         } else res.send(data);
@@ -64,18 +64,18 @@ exports.update = (req, res) => {
     });
   }
 
-  Recurent_Tache.updateById(
-    req.params.recurent_tacheID,
-    new Course(req.body),
+  Recurent_Event.updateById(
+    req.params.recurent_eventID,
+    new Recurent_Event(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Customer with id ${req.params.recurent_tacheID}.`
+            message: `Not found Customer with id ${req.params.recurent_eventID}.`
           });
         } else {
           res.status(500).send({
-            message: "Error updating Customer with id " + req.params.recurent_tacheID
+            message: "Error updating Customer with id " + req.params.recurent_eventID
           });
         }
       } else res.send(data);
@@ -85,15 +85,15 @@ exports.update = (req, res) => {
 
 // Delete a Customer with the specified customerId in the request
 exports.delete = (req, res) => {
-    Recurent_Tache.remove(req.params.recurent_tacheID, (err, data) => {
+    Recurent_Event.remove(req.params.recurent_eventID, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not found Customer with id ${req.params.recurent_tacheID}.`
+              message: `Not found Customer with id ${req.params.recurent_eventID}.`
             });
           } else {
             res.status(500).send({
-              message: "Could not delete Customer with id " + req.params.recurent_tacheID
+              message: "Could not delete Customer with id " + req.params.recurent_eventID
             });
           }
         } else res.send({ message: `Customer was deleted successfully!` });
@@ -102,7 +102,7 @@ exports.delete = (req, res) => {
 
 // Delete all Customers from the database.
 exports.deleteAll = (req, res) => {
-    Recurent_Tache.removeAll((err, data) => {
+    Recurent_Event.removeAll((err, data) => {
         if (err)
           res.status(500).send({
             message:

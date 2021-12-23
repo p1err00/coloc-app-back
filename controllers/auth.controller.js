@@ -19,7 +19,8 @@ exports.signin = (req, res) => {
         sexe_user : req.body.sexe_user,
         tel_user : req.body.tel_user,
         id_coloc : req.body.id_coloc,
-        admin_user : req.body.admin_user
+        admin_user : req.body.admin_user,
+        loyer : req.body.loyer
     });
 
     User.signin(user, (err, data) => {
@@ -29,12 +30,9 @@ exports.signin = (req, res) => {
                     err.message || "some error ocurred"
             });
         else {
-            console.log(('azeazeae'));
-            console.log(data);
             
             var token = jwt.sign({ id: data[0].id_user, email: data[0].email_user, name: data[0].username_user }, 'secret', { expiresIn: '1h' });
             // On donne le token à l'user et on retourne l'user
-            console.log(token);
 
             res.status(201).json({
                 message: "User successfully created!",

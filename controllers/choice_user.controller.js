@@ -11,6 +11,8 @@ exports.create = (req, res) => {
         id_choice : req.body.id_choice,
         id_user : req.body.id_user,
         has_voted : req.body.has_voted,
+        nom_choice : req.body.nom_choice,
+        id_vote : req.body.id_vote
     });
 
     Choice_user.create(choice_user, (err, data) => {
@@ -72,7 +74,9 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    Choice_user.remove(req.params.choiceID, (err, data) => {
+    Choice_user.remove(
+        req.params.choiceID,
+        req.params.userID, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({

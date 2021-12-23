@@ -13,7 +13,8 @@ const User = function (user) {
     this.sexe_user = user.sexe_user,
     this.tel_user = user.tel_user,
     this.id_coloc = user.id_coloc,
-    this.admin_user = user.admin_user
+    this.admin_user = user.admin_user,
+    this.loyer = user.loyer
 };
 
 //Signin user
@@ -51,8 +52,6 @@ User.create = (newUser, result) => {
             result(err, null);
             return;
         }
-
-        console.log("created course: ", { id: res.insertId, ...newUser });
         result(null, { id: res.insertId, ...newUser });
     });
 };
@@ -67,7 +66,6 @@ User.getUserById = (id, result) => {
         }
 
         if (res.length) {
-            console.log("found course: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -84,16 +82,14 @@ User.getAll = result => {
             result(null, err);
             return;
         }
-
-        console.log("course: ", res);
         result(null, res);
     });
 };
 
 User.update = (id, user, result) => {
     sql.query(
-        "UPDATE `utilisateurs` SET `username_user`= ?,`password_user`= ?,`email_user`= ?, firstname_user = ?, lastname_user = ?, date_of_birth_user = ?, sexe_user = ?, tel_user = ?, id_coloc = ?, admin_user = ? WHERE id_user = ?",
-        [user.username_user, user.password_user, user.email_user, user.firstname_user, user.lastname_user, user.date_of_birth_user, user.sexe_user, user.tel_user, user.id_coloc, user.admin_user, id],
+        "UPDATE `utilisateurs` SET `username_user`= ?,`password_user`= ?,`email_user`= ?, firstname_user = ?, lastname_user = ?, date_of_birth_user = ?, sexe_user = ?, tel_user = ?, id_coloc = ?, admin_user = ?, loyer =? WHERE id_user = ?",
+        [user.username_user, user.password_user, user.email_user, user.firstname_user, user.lastname_user, user.date_of_birth_user, user.sexe_user, user.tel_user, user.id_coloc, user.admin_user, user.loyer, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -106,8 +102,6 @@ User.update = (id, user, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-
-            console.log("updated course: ", { id: id, ...user });
             result(null, { id: id, ...user });
         }
     );
@@ -127,8 +121,6 @@ User.remove = (id, result) => {
             result({ kind: "not_found" }, null);
             return;
         }
-
-        console.log("deleted course with id: ", id);
         result(null, res);
     });
 };

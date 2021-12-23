@@ -25,7 +25,6 @@ Choice.getAll = (id, result) => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
@@ -39,7 +38,6 @@ Choice.findById = (id_choice, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res);
         result(null, res);
         return;
       }

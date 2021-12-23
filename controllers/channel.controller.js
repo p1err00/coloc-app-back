@@ -32,7 +32,6 @@ exports.getAll = (req, res) => {
             message: "Content can't be empty"
         });
     }
-    console.log("Get send");
     Channel.getSend(req.params.userID, (err, data) => {
         if (err)
             res.status(500).send({
@@ -52,7 +51,7 @@ exports.update = (req, res) => {
 
     Channel.update(
         req.params.channelID,
-        new channel(req.body),
+        new Channel(req.body),
         (err, data) => {
             if (err) {
                 if (err.kind === "not found") {

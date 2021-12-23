@@ -17,7 +17,6 @@ Message.create = (newmessage, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created  :", { id: res.index_cha, ...newmessage });
     });
 }
 

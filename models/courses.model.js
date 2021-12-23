@@ -19,7 +19,6 @@ Course.create = (newCourse, result) => {
       return;
     }
 
-    console.log("created course: ", { id: res.insertId, ...newCourse });
     result(null, { id: res.insertId, ...newCourse });
   });
 };
@@ -33,7 +32,6 @@ Course.findById = (courseId, result) => {
     }
 
     if (res.length) {
-      console.log("found course: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -51,7 +49,6 @@ Course.getAll = result => {
       return;
     }
 
-    console.log("course: ", res);
     result(null, res);
   });
 };
@@ -73,14 +70,12 @@ Course.updateById = (id, course, result) => {
         return;
       }
 
-      console.log("updated course: ", { id: id, ...course });
       result(null, { id: id, ...course });
     }
   );
 };
 
 Course.remove = (id, result) => {
-  console.log(id);
   sql.query("DELETE FROM `courses` WHERE id = ?", id.coursesId, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -93,7 +88,6 @@ Course.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted course with id: ", id);
   });
 };
 
@@ -105,7 +99,6 @@ Course.removeAll = result => {
       return;
     }
 
-    console.log(`deleted ${res.affectedRows} courses`);
     result(null, res);
   });
 };

@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Customers from the database.
 exports.findAll = (req, res) => {
-    Extra.getAll((err, data) => {
+    Extra.getAll(req.params.userID, (err, data) => {
         if (err)
           res.status(500).send({
             message:
@@ -87,7 +87,6 @@ exports.update = (req, res) => {
 
 // Delete a Customer with the specified customerId in the request
 exports.delete = (req, res) => {
-  console.log(req.params);
   Extra.remove(req.params, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {

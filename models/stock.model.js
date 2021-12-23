@@ -21,7 +21,6 @@ Stock.create = (newStock, result) => {
         return;
       }
   
-      console.log("created stock: ", { id: res.insertId, ...newStock });
       result(null, { id: res.insertId, ...newStock });
     });
   };
@@ -53,7 +52,6 @@ Stock.create = (newStock, result) => {
         return;
       }
   
-      console.log("stock: ", res);
       result(null, res);
     });
   }

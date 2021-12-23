@@ -20,7 +20,6 @@ Evenements.create = (newEvent, result) => {
         return;
       }
   
-      console.log("created wishlist: ", { id: res.insertId, ...newEvent });
       result(null, { id: res.insertId, ...newEvent });
     });
   };
@@ -34,7 +33,6 @@ Evenements.create = (newEvent, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res[0]);
         result(null, res[0]);
         return;
       }
@@ -52,7 +50,6 @@ Evenements.create = (newEvent, result) => {
         return;
       }
   
-      console.log("stock: ", res);
       result(null, res);
     });
   }
@@ -73,13 +70,11 @@ Evenements.create = (newEvent, result) => {
           return;
         }
   
-        console.log("updated stock: ", { id_e: event.id_e, ...event });
         result(result, { id_e: event.id_e, ...event });
       });
   };
   
   Evenements.remove = (result) => {
-    console.log(result);
     sql.query("DELETE FROM `evenements` WHERE id_e = ?", result.eventID, (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -92,7 +87,6 @@ Evenements.create = (newEvent, result) => {
         return;
       }
   
-      console.log("deleted stock with id: ", result);
     });
   };
   
@@ -104,7 +98,6 @@ Evenements.create = (newEvent, result) => {
         return;
       }
   
-      console.log(`deleted ${res.affectedRows} evenement`);
       result(null, res);
     });
   };

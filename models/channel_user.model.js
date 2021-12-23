@@ -1,10 +1,12 @@
 const sql = require("./db.js");
 
 const Channel_user = function (channel_user) {
-    this.id_channel = channel_user.id_channel,
-    this.id_user = channel_user.id_user,
-    this.id_coloc = channel_user.id_coloc,
-    this.nom = channel_user.nom
+    this.id_channel = channel_user.id_channel;
+    this.id_user = channel_user.id_user;
+    this.id_coloc = channel_user.id_coloc;
+    this.nom = channel_user.nom;
+    this.deleteChannel = channel_user.deleteChannel;
+    this.last_message = channel_user.last_message
 }
 
 Channel_user.create = (newchannel_user, result) => {
@@ -13,7 +15,6 @@ Channel_user.create = (newchannel_user, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created categorie :", { id: res.index_cha, ...newchannel_user });
     });
 }
 
@@ -26,13 +27,12 @@ Channel_user.getAll = (id, result) => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
 
 Channel_user.getById = (id_channel, result) => {
-    sql.query(`SELECT * FROM channel_user WHERE id_channel = ${id_channel}`, (err, res) => {
+    sql.query(`SELECT * FROM channel_user WHERE id_channel = '${id_channel}'`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -40,8 +40,7 @@ Channel_user.getById = (id_channel, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res[0]);
-        result(null, res[0]);
+        result(null, res);
         return;
       }
   
@@ -50,9 +49,9 @@ Channel_user.getById = (id_channel, result) => {
     });
   };
 
-Channel_user.update = (id, channel_user, result) => {
-    sql.query("UPDATE channel_user SET nom_cha = ?, valeur_cha = ?, select_cha = ? WHERE nom_cha = ?",
-        [channel_user.nom_cha, channel_user.valeur_cha, channel_user.select_cha, id],
+Channel_user.update = (id, result) => {
+    sql.query("UPDATE channel_user SET id_user = ?, id_coloc = ?, nom = ?, deleteChannel = ?, last_message = ? WHERE id_channel = ?",
+        [channel_user.id_user, channel_user.id_coloc, channel_user.nom, channel_user.deleteChannel, channel_user.last_message, id],
         (err, res) => {
             if (err) {
                 console.log("erreur :", err);
@@ -61,7 +60,20 @@ Channel_user.update = (id, channel_user, result) => {
             if (res.affectedRows == 0) {
                 return;
             }
-            console.log("Updating :", {id_cha: result.id_cha, ...result});
+        })
+}
+
+Channel_user.updateById = (id, id_user, channel_user, result) => {
+    sql.query("UPDATE channel_user SET id_user = ?, id_coloc = ?, nom = ?, deleteChannel = ?, last_message = ? WHERE id_channel = ? AND id_user = ?",
+        [id_user, channel_user.id_coloc, channel_user.nom, channel_user.deleteChannel, channel_user.last_message, id, id_user],
+        (err, res) => {
+            if (err) {
+                console.log("erreur :", err);
+                return;
+            }
+            if (res.affectedRows == 0) {
+                return;
+            }
         })
 }
 
@@ -79,7 +91,6 @@ Channel_user.remove = (result) => {
             return;
           }
       
-          console.log("deleted categories with id: ", result);
           result(null, res);
     });
 }

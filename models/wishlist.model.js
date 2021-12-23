@@ -19,7 +19,6 @@ Wishlist.create = (newWish, result) => {
         return;
       }
   
-      console.log("created wishlist: ", { id: res.insertId, ...newWish });
       result(null, { id: res.insertId, ...newWish });
     });
   };
@@ -51,7 +50,6 @@ Wishlist.create = (newWish, result) => {
         return;
       }
   
-      console.log("stock: ", res);
       result(null, res);
     });
   }

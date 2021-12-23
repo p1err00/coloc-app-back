@@ -15,7 +15,6 @@ Importance.create = (newImportance, result) => {
             result(err, null);
             return;
         }
-        console.log("Created importance : ", {id: res.id_i, ...newImportance});
         result(null, {id: res.insertID, ...newImportance});
     });
 }

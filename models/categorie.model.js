@@ -13,7 +13,6 @@ Categorie.create = (newCategorie, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created categorie :", { id: res.index_ca, ...newCategorie });
     });
 }
 
@@ -24,7 +23,6 @@ Categorie.getAll = result => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
@@ -40,7 +38,6 @@ Categorie.update = (id, categorie, result) => {
             if (res.affectedRows == 0) {
                 return;
             }
-            console.log("Updating :", {id_ca: result.id_ca, ...result});
         })
 }
 
@@ -58,7 +55,6 @@ Categorie.remove = (result) => {
             return;
           }
       
-          console.log("deleted categories with id: ", result);
           result(null, res);
     });//
 }

@@ -17,7 +17,6 @@ Notification.create = (newNotif, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created categorie :", { id: res.id_notif, ...newNotif });
     });
 }
 
@@ -28,7 +27,6 @@ Notification.getAll = result => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
@@ -42,7 +40,6 @@ Notification.findById = (newNotif, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res);
         result(null, res);
         return;
       }
@@ -63,7 +60,6 @@ Notification.update = (id, notification, result) => {
             if (res.affectedRows == 0) {
                 return;
             }
-            console.log("Updating :", {id_notif: result.id_notif, ...result});
         })
 }
 
@@ -81,7 +77,6 @@ Notification.remove = (result) => {
             return;
           }
       
-          console.log("deleted notification with id: ", result);
           result(null, res);
     });
 }

@@ -17,7 +17,6 @@ Site.create = (newSite, result) => {
         return;
       }
   
-      console.log("created stock: ", { id: res.insertId, ...newSite });
       result(null, { id: res.insertId, ...newSite });
     });
   };
@@ -49,7 +48,6 @@ Site.create = (newSite, result) => {
         return;
       }
   
-      console.log("stock: ", res);
       result(null, res);
     });
   }

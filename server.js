@@ -7,17 +7,18 @@ const app = express();
 const cors = require('cors');
 const server = http.createServer(app);
 const io = require("socket.io")(server,
-                                {  cors: {
-                                      origin: "*",    methods: ["GET", "POST"]  
-                                    }
-                                });
+  {
+    cors: {
+      origin: "*", methods: ["GET", "POST"]
+    }
+  });
 
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token");
-  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS, HEAD");  
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS, HEAD");
   res.header("Authorization", "Content-Type");
   res.header("Content-Type", "application/json; charset=UTF-8");
   next();
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use(cookieParser());
- 
+
 
 //CRUD routes
 require("./routes/course.routes.js")(app);
@@ -56,25 +57,26 @@ require("./routes/vote.routes.js")(app);
 require("./routes/choice.routes.js")(app);
 require("./routes/choice_user.routes.js")(app);
 require("./routes/recurent_tache.routes.js")(app);
+require("./routes/recurent_event.routes.js")(app);
 
 
-  //Socket chat
-  io.on("connection", (socket) => {
-    console.log('a user connected');
-  
-    socket.on('join', function(data){
-      // Joining room
-      socket.join(data.room);
-      console.log(data.user + ' joined the room : ' + data.room);
-      socket.broadcast.to(data.room).emit('new user joined', {user:data.user, message:'has joined this room.'});
-    });
+//Socket chat
+io.on("connection", (socket) => {
+  console.log('a user connected');
 
-    socket.on('new message', function(data) {
-      console.log(data);
-      io.in(data.room).emit('new message', {user:data.user, message:data.message});
-    });
+  socket.on('join', function (data) {
+    // Joining room
+    socket.join(data.room);
+    console.log(data.user + ' joined the room : ' + data.room);
+    socket.broadcast.to(data.room).emit('new user joined', { user: data.user, message: 'has joined this room.' });
   });
-  
+
+  socket.on('new message', function (data) {
+    console.log(data);
+    io.in(data.room).emit('new message', { user: data.user, message: data.message });
+  });
+});
+
 // set port, listen for requests
 
 server.listen((process.env.PORT || 3000), () => {

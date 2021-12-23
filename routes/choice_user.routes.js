@@ -9,5 +9,5 @@ module.exports = app => {
 
     app.put("/choice_user/:choiceID", choice_user.update);
 
-    app.delete("/choice_user/:choiceID", choice_user.delete);
+    app.delete("/choice_user/:choiceID/:userID", choice_user.delete);
 }

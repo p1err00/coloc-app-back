@@ -8,7 +8,8 @@ const CourseCourante = function(courseCourante) {
   this.nb_buy_cur_cou = courseCourante.nb_buy_cur_cou,
   this.last_buy_cur_cou = courseCourante.last_buy_cur_cou,
   this.prix_cur_cou = courseCourante.prix_cur_cou,
-  this.id_coloc = courseCourante.id_coloc
+  this.id_coloc = courseCourante.id_coloc,
+  this.done = courseCourante.done
 };
 
 CourseCourante.create = (newCourse, result) => {
@@ -19,7 +20,6 @@ CourseCourante.create = (newCourse, result) => {
       return;
     }
 
-    console.log("created course: ", { id: res.insertId, ...newCourse });
     result(null, { id: res.insertId, ...newCourse });
   });
 };
@@ -33,7 +33,6 @@ CourseCourante.findById = (courseId, result) => {
     }
 
     if (res.length) {
-      console.log("found course: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -51,15 +50,14 @@ CourseCourante.getAll = result => {
       return;
     }
 
-    console.log("course: ", res);
     result(null, res);
   });
 };
 
 CourseCourante.updateById = (id, course, result) => {
   sql.query(
-    "UPDATE `courses_current` SET `nom_cur_cou`=?,`nb_buy_cur_cou`=?,`last_buy_cur_cou`=?, prix_cur_cou = ? WHERE nom_cur_cou = ?",
-    [course.nom_cur_cou, course.nb_buy_cur_cou, course.last_buy_cur_cou, course.prix_cur_cou, id],
+    "UPDATE `courses_current` SET `nom_cur_cou`=?,`nb_buy_cur_cou`=?,`last_buy_cur_cou`=?, prix_cur_cou = ?, done = ? WHERE id  = ?",
+    [course.nom_cur_cou, course.nb_buy_cur_cou, course.last_buy_cur_cou, course.prix_cur_cou, course.done, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -73,7 +71,6 @@ CourseCourante.updateById = (id, course, result) => {
         return;
       }
 
-      console.log("updated course: ", { id: id, ...course });
       result(null, { id: id, ...course });
     }
   );
@@ -93,7 +90,6 @@ CourseCourante.remove = (id, result) => {
       return;
     }
 
-    console.log("deleted course with id: ", id);
 
   });
 };
@@ -106,7 +102,6 @@ CourseCourante.removeAll = result => {
       return;
     }
 
-    console.log(`deleted ${res.affectedRows} courses`);
     result(null, res);
   });
 };

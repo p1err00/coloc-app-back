@@ -15,7 +15,6 @@ Colocation.create = (newcolocation, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created categorie :", { id: res.index_coloc, ...newcolocation });
     });
 }
 
@@ -26,7 +25,6 @@ Colocation.getAll = result => {
             result(null, err);
             return;
         }
-        console.log("Categorie : ", res);
         result(null, res);
     });
 }
@@ -40,7 +38,6 @@ Colocation.findById = (newColocation, result) => {
       }
   
       if (res.length) {
-        console.log("found stock: ", res[0]);
         result(null, res[0]);
         return;
       }
@@ -62,7 +59,6 @@ Colocation.update = (id, colocation, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-            console.log("Updating :", {id_coloc: id, ...result});
         })
 }
 
@@ -80,7 +76,6 @@ Colocation.remove = (result) => {
             return;
           }
       
-          console.log("deleted categories with id: ", result);
           result(null, res);
     });
 }

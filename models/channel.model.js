@@ -14,7 +14,6 @@ Channel.create = (newchannel, result) => {
             console.log("erreur :", err);
             return;
         }
-        console.log("Created  :", { id: res.index_cha, ...newchannel });
         return newchannel;
     });
 }
@@ -27,7 +26,6 @@ Channel.getSend = (id_user, result) => {
             result(null, err);
             return;
         }
-        console.log("channel : ", res);
         result(null, res);
     });
 }
@@ -41,7 +39,6 @@ Channel.getReceived = (id_user, result) => {
             result(null, err);
             return;
         }
-        console.log("channel : ", res);
         result(null, res);
     });
 }
@@ -57,7 +54,6 @@ Channel.update = (id, channel, result) => {
             if (res.affectedRows == 0) {
                 return;
             }
-            console.log("Updating :", {id_cha: result.id_cha, ...result});
         })
 }
 
@@ -75,7 +71,6 @@ Channel.remove = (result) => {
             return;
           }
       
-          console.log("deleted categories with id: ", result);
           result(null, res);
     });
 }

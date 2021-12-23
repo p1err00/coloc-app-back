@@ -1,29 +1,25 @@
 const sql = require("./db.js");
-const mysql = require('mysql');
 
 // constructor
-const Extra = function(extra) {
-  this.id_ex = extra.id,
-  this.nom_ex = extra.nom_ex,
-  this.valeur_ex = extra.valeur_ex,
-  this.select_ex = extra.select_ex,
-  this.id_user = extra.id_user
+const Recurent_Event = function(recurent_event) {
+  this.id = recurent_event.id,
+  this.nom = recurent_event.nom,
+  this.id_coloc = recurent_event.id_coloc
 };
 
-Extra.create = (newExtra, result) => {
-  sql.query("INSERT INTO extras SET ?", newExtra, (err, res) => {
+Recurent_Event.create = (newRecurent_event, result) => {
+  sql.query("INSERT INTO recurent_evenement SET ?", newRecurent_event, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    result(null, { id: res.insertId, ...newExtra });
   });
 };
 
-Extra.findById = (extraID, result) => {
-  sql.query(`SELECT * FROM extras WHERE id = ${extraID}`, (err, res) => {
+Recurent_Event.findById = (recuren_event, result) => {
+  sql.query(`SELECT * FROM recurent_evenement WHERE id = ${recuren_event}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -41,8 +37,10 @@ Extra.findById = (extraID, result) => {
   });
 };
 
-Extra.getAll = (id, result) => {
-  sql.query(`SELECT * FROM extras WHERE id_user = ${id}`,  (err, res) => {
+Recurent_Event.getAll = (coloc_id, result) => {
+  sql.query("SELECT * FROM recurent_evenement WHERE id_coloc = ?",
+  coloc_id,
+  (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -54,12 +52,10 @@ Extra.getAll = (id, result) => {
   });
 };
 
-Extra.update = (id, extra, result) => {
-  console.log(id);
-  console.log(extra);
+Recurent_Event.updateById = (id, recurent_event, result) => {
   sql.query(
-    "UPDATE `extras` SET `nom_ex`=?,`valeur_ex`=?,`select_ex`=? WHERE id_ex = ?",
-    [extra.nom_ex, extra.valeur_ex, extra.select_ex, id],
+    "UPDATE `recurent_evenement` SET `nom`=?, id_coloc = ? WHERE id = ?",
+    [recurent_event.nom, recurent_event.id_coloc, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -73,15 +69,14 @@ Extra.update = (id, extra, result) => {
         return;
       }
 
-      console.log("updated extra: ", { id: id, ...extra });
-      result(null, { id: id, ...extra });
+      console.log("updated course: ", { id: id, ...recurent_event });
+      result(null, { id: id, ...recurent_event });
     }
   );
 };
 
-Extra.remove = (id, result) => {
-  console.log(id);
-  sql.query("DELETE FROM `extras` WHERE id_ex = ?", id.extrasID, (err, res) => {
+Recurent_Event.remove = (id, result) => {
+  sql.query("DELETE FROM `recurent_evenement` WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -94,12 +89,11 @@ Extra.remove = (id, result) => {
     }
 
     console.log("deleted course with id: ", id);
-
   });
 };
 
-Extra.removeAll = result => {
-  sql.query("DELETE FROM extras", (err, res) => {
+Recurent_Event.removeAll = result => {
+  sql.query("DELETE FROM recurent_event", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -111,4 +105,4 @@ Extra.removeAll = result => {
   });
 };
 
-module.exports = Extra;
+module.exports = Recurent_Event

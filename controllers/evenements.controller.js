@@ -2,7 +2,6 @@ const Evenements = require("../models/evenements.model.js");
 
 // Create and Save a new Customer
 exports.create = (req, res) => {
-  console.log("requete reçu");
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"

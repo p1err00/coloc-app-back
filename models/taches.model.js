@@ -23,7 +23,6 @@ Taches.create = (newTache, result) => {
         return;
       }
   
-      console.log("created tache: ", { id: res.insertId, ...newTache });
       result(null, { id: res.insertId, ...newTache });
     });
   };
@@ -55,7 +54,6 @@ Taches.create = (newTache, result) => {
         return;
       }
   
-      console.log("stock: ", res);
       result(null, res);
     });
   }

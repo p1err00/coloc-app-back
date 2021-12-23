@@ -5,7 +5,7 @@ module.exports = app => {
     app.post("/extras", extras.create);
   
     // Retrieve all Customers
-    app.get("/extras", extras.findAll);
+    app.get("/extras/:userID", extras.findAll);
   
     // Retrieve a single Customer with customerId
     app.get("/extras/:extrasID", extras.findOne);
