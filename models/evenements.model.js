@@ -25,7 +25,7 @@ Evenements.create = (newEvent, result) => {
   };
   
   Evenements.findById = (newEvent, result) => {
-    sql.query(`SELECT * FROM evenements WHERE id = ${newEvent}`, (err, res) => {
+    sql.query(`SELECT * FROM evenements WHERE id_coloc = ${newEvent}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);

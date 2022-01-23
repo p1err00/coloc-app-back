@@ -26,9 +26,28 @@ Taches.create = (newTache, result) => {
       result(null, { id: res.insertId, ...newTache });
     });
   };
+
+  Taches.findByUser = (id, result) => {
+    sql.query(`SELECT * FROM taches WHERE personne_t = '${id}'`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      if (res.length) {
+        console.log("found stock: ", res);
+        result(null, res);
+        return;
+      }
+  
+      // not found Customer with the id
+      result({ kind: "not_found" }, null);
+    });
+  }
   
   Taches.findById = (newTache, result) => {
-    sql.query(`SELECT * FROM taches WHERE id = ${newTache}`, (err, res) => {
+    sql.query(`SELECT * FROM taches WHERE id_t = ${newTache}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -55,25 +74,6 @@ Taches.create = (newTache, result) => {
       }
   
       result(null, res);
-    });
-  }
-
-  Taches.findByUser = (id, result) => {
-    sql.query(`SELECT * FROM taches WHERE personne_t = '${id}'`, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-  
-      if (res.length) {
-        console.log("found stock: ", res);
-        result(null, res);
-        return;
-      }
-  
-      // not found Customer with the id
-      result({ kind: "not_found" }, null);
     });
   }
   

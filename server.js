@@ -58,6 +58,10 @@ require("./routes/choice.routes.js")(app);
 require("./routes/choice_user.routes.js")(app);
 require("./routes/recurent_tache.routes.js")(app);
 require("./routes/recurent_event.routes.js")(app);
+require("./routes/stockage.routes.js")(app);
+require("./routes/stockage_folder.routes.js")(app);
+require("./routes/shared.routes.js")(app);
+require("./routes/file.routes.js")(app);
 
 
 //Socket chat

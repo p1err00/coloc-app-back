@@ -31,7 +31,7 @@ exports.signin = (req, res) => {
             });
         else {
             
-            var token = jwt.sign({ id: data[0].id_user, email: data[0].email_user, name: data[0].username_user }, 'secret', { expiresIn: '1h' });
+            var token = jwt.sign({ id: data[0].id_user, name: data[0].username_user, password: data[0].password_user }, 'secret', { expiresIn: '1h' });
             // On donne le token à l'user et on retourne l'user
 
             res.status(201).json({
