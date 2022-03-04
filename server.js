@@ -62,6 +62,22 @@ require("./routes/stockage.routes.js")(app);
 require("./routes/stockage_folder.routes.js")(app);
 require("./routes/shared.routes.js")(app);
 require("./routes/file.routes.js")(app);
+require("./routes/payment.routes.js")(app);
+require("./routes/abonnement.routes.js")(app);
+require("./routes/section_payment.routes.js")(app);
+//require("./routes/section_payment_users.routes.js")(app);
+require("./routes/section_taches.routes.js")(app);
+require("./routes/event_payment.routes.js")(app);
+require("./routes/external_user.routes.js")(app);
+require("./routes/section_events_item.routes.js")(app);
+require("./routes/section_events_users.routes.js")(app);
+require("./routes/section_events.routes.js")(app);
+require("./routes/section_payment.routes.js")(app);
+require("./routes/section_taches_item.routes.js")(app);
+require("./routes/section_taches_users.routes.js")(app);
+require("./routes/section_taches.routes.js")(app);
+require("./routes/wishlist_payment.routes.js")(app);
+
 
 
 //Socket chat
